@@ -14,8 +14,11 @@ tweetsData.forEach(getFeedHtml)
     for each Object in tweetsData array
     use object values to populate UI
 */
+
 function getFeedHtml(tweet){
-    feed.innerHTML += `
+    let feedHtml = ''
+    
+    feedHtml += `
     <div class="tweet">
         <div class="tweet-inner">
             <img src="./${tweet.profilePic}" class="profile-pic">
@@ -37,4 +40,6 @@ function getFeedHtml(tweet){
         </div>
     </div>
 `
+//console.log(feedHtml)
+return feedHtml
 }
