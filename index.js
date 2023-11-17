@@ -4,11 +4,19 @@ const tweetInputArea = document.getElementById('tweet-input-area')
 const tweetInput = document.getElementById('tweet-input')
 const tweetBtn = document.getElementById('tweet-btn')
 const feed = document.getElementById('feed')
-// let feedHtml =''
+
+
+document.addEventListener('click', function(event){
+    if( event.target.dataset.replies ) { console.log(event.target.dataset.replies) }
+    else if (  event.target.dataset.likes ) { console.log( event.target.dataset.likes )}
+    else if ( event.target.dataset.retweets ) { console.log( event.target.dataset.retweets ) }
+})
 
 tweetBtn.addEventListener('click', function(){
     console.log(`clicked ${tweetBtn}`)
 })
+
+
 
 function getFeedHtml(){
 
@@ -24,15 +32,32 @@ function getFeedHtml(){
                         <p class="tweet-text">${tweet.tweetText}</p>
                         <div class="tweet-details">
                             <span class="tweet-detail">
-                                <i class="fa-regular fa-comment-dots"></i>
+                                <i 
+                                    class="fa-regular
+                                     fa-comment-dots"
+                                     data-replies="${tweet.uuid}"
+                                     >
+                                </i>
                                 ${tweet.replies.length}
                             </span>
                             <span class="tweet-detail">
-                                <i class="fa-solid fa-heart"></i>
+                                <i 
+                                    class="fa-solid
+                                     fa-heart"
+                                     data-likes="${tweet.uuid}"
+                                >
+                                </i>
+                                
                                 ${tweet.likes}
                             </span>
                             <span class="tweet-detail">
-                                <i class="fa-solid fa-retweet"></i>
+                                <i 
+                                    class="fa-solid
+                                     fa-retweet"
+                                     data-retweets="${tweet.uuid}"
+                                >
+                                </i>
+                                
                                 ${tweet.retweets}
                             </span>
                         </div>   
