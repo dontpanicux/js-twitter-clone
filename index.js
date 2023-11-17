@@ -52,4 +52,7 @@ function getFeedHtml(){
 
 
 // add existing content to #feed
-feed.innerHTML = getFeedHtml()
+function renderTweetHtml(){
+    feed.innerHTML = getFeedHtml()
+}
+renderTweetHtml()
