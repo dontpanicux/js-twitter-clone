@@ -7,16 +7,61 @@ const feed = document.getElementById('feed')
 
 
 document.addEventListener('click', function(event){
-    if( event.target.dataset.replies ) { console.log(event.target.dataset.replies) }
-    else if (  event.target.dataset.likes ) { console.log( event.target.dataset.likes )}
-    else if ( event.target.dataset.retweets ) { console.log( event.target.dataset.retweets ) }
+    
+
+    if ( event.target.dataset.replies ) { handleRepliesClick(event) }
+    else if ( event.target.dataset.likes ) { handleLikeClick(event) }
+    else if ( event.target.dataset.retweets )  { handleRetweetsClick(event) }
 })
 
 tweetBtn.addEventListener('click', function(){
     console.log(`clicked ${tweetBtn}`)
 })
 
+function handleLikeClick(tweetId){
+    //document.querySelector(tweetId.target).classList.add('liked')
+    // find the object the corresponds to the uuid
+    tweetsData.forEach(function(tweet){
+        if ( tweetId.target.dataset.likes === tweet.uuid){
+            
+            if( tweet.isLiked ){
+                // add to likes
+                tweet.likes--
+            } else {
+                tweet.likes ++
+            }
+            tweet.isLiked = !tweet.isLiked
 
+            // tweet.isLiked = true
+        }
+        // rendered updated data to the page
+        renderTweetHtml()
+    })
+       
+}
+
+function handleRepliesClick(tweetId){
+    console.log(tweetId.target.dataset.replies)
+}
+
+function handleRetweetsClick(tweetId){
+    //console.log(tweetId.target.dataset.retweets)
+
+    //find the object with the returned uuid
+    tweetsData.forEach(function(tweet){
+        if( tweetId.target.dataset.retweets === tweet.uuid) {
+            
+            if(tweet.isRetweeted){
+                tweet.retweets--
+            } else {
+
+                tweet.retweets++
+            }
+            tweet.isRetweeted = !tweet.isRetweeted
+        }
+        renderTweetHtml()
+    })
+}
 
 function getFeedHtml(){
 
@@ -36,7 +81,7 @@ function getFeedHtml(){
                                     class="fa-regular
                                      fa-comment-dots"
                                      data-replies="${tweet.uuid}"
-                                     >
+                                >
                                 </i>
                                 ${tweet.replies.length}
                             </span>
@@ -65,7 +110,6 @@ function getFeedHtml(){
                 </div>
             </div>
             `
-        //console.log(feedHtml)
     
     })
     return feedHtml
